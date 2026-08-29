@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Left Flanking Equalizer Waveform Bars -->
+    <!-- Bar 1 (Outer Left) -->
+    <path
+        android:strokeWidth="3.2"
+        android:strokeColor="#804DB6AC"
+        android:strokeLineCap="round"
+        android:pathData="M 28,48 L 28,60" />
+
+    <!-- Bar 2 (Mid Left) -->
+    <path
+        android:strokeWidth="3.5"
+        android:strokeColor="#CC4DB6AC"
+        android:strokeLineCap="round"
+        android:pathData="M 35,40 L 35,68" />
+
+    <!-- Bar 3 (Inner Left) -->
+    <path
+        android:strokeWidth="3.8"
+        android:strokeColor="#FFFF6E5B"
+        android:strokeLineCap="round"
+        android:pathData="M 42,32 L 42,76" />
+
+    <!-- Center Studio Microphone Capsule -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M 54,28 C 49.58,28 46,31.58 46,36 L 46,54 C 46,58.42 49.58,62 54,62 C 58.42,62 62,58.42 62,54 L 62,36 C 62,31.58 58.42,28 54,28 Z" />
+
+    <!-- Microphone Cradle Arc -->
+    <path
+        android:strokeWidth="4"
+        android:strokeColor="#FFFF6E5B"
+        android:strokeLineCap="round"
+        android:pathData="M 39,48 C 39,60 48,68 54,68 C 60,68 69,60 69,48" />
+
+    <!-- Microphone Base Stem -->
+    <path
+        android:strokeWidth="4"
+        android:strokeColor="#FFFF6E5B"
+        android:strokeLineCap="round"
+        android:pathData="M 54,68 L 54,78 M 45,78 L 63,78" />
+
+    <!-- Right Flanking Equalizer Waveform Bars -->
+    <!-- Bar 4 (Inner Right) -->
+    <path
+        android:strokeWidth="3.8"
+        android:strokeColor="#FFFF6E5B"
+        android:strokeLineCap="round"
+        android:pathData="M 66,32 L 66,76" />
+
+    <!-- Bar 5 (Mid Right) -->
+    <path
+        android:strokeWidth="3.5"
+        android:strokeColor="#CC4DB6AC"
+        android:strokeLineCap="round"
+        android:pathData="M 73,40 L 73,68" />
+
+    <!-- Bar 6 (Outer Right) -->
+    <path
+        android:strokeWidth="3.2"
+        android:strokeColor="#804DB6AC"
+        android:strokeLineCap="round"
+        android:pathData="M 80,48 L 80,60" />
+
+</vector>
