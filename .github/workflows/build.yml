@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'v*' # Скрипт автоматически запустит релиз, когда вы создадите тег, начинающийся с 'v'
+      - 'v*' # Скрипт автоматически запустит сборку и релиз при пуше тега (например, v1.0.0)
 
 jobs:
   build:
@@ -23,36 +23,49 @@ jobs:
         with:
           gradle-version: '9.3.1'
 
-      # Сборка с генерацией отчета Gradle Build Scan (как на вашем скриншоте)
       - name: Build Debug APK with Scan
         run: gradle assembleDebug --scan
 
-      - name: Upload APK Artifact
+      # Копируем .apk в чистую папку без архивного сжатия
+      - name: Prepare APK for Release
+        run: |
+          mkdir -p final-apk
+          cp app/build/outputs/apk/debug/*.apk final-apk/OyeSuno-debug.apk
+          # Создаем файл контрольной суммы (подписи SHA-256), как принято в Open Source
+          cd final-apk
+          sha256sum OyeSuno-debug.apk > OyeSuno-debug.apk.sha256
+
+      - name: Upload Unzipped APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: OyeSuno-APK
-          path: app/build/outputs/apk/debug/*.apk
+          name: OyeSuno-Release-Files
+          path: final-apk/
 
   release:
     needs: build
-    if: startsWith(github.ref, 'refs/tags/v') # Релиз создается только при пуше тега
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Требуется для создания релиза и загрузки файлов
+      contents: write
     steps:
-      - name: Download APK from build
+      - name: Download Release Files
         uses: actions/download-artifact@v4
         with:
-          name: OyeSuno-APK
-          path: apk
+          name: OyeSuno-Release-Files
+          path: release-files
 
       - name: Create GitHub Release and Upload APK
         uses: softprops/action-gh-release@v2
         with:
-          files: apk/*.apk
+          files: |
+            release-files/*.apk
+            release-files/*.sha256
           name: OyeSuno Release ${{ github.ref_name }}
           body: |
-            Автоматическая сборка приложения OyeSuno.
-            Скомпилировано через GitHub Actions с поддержкой Gradle Build Scan.
+            ### 📥 Скачать приложение
+            - **OyeSuno-debug.apk** — готовый файл для установки на Android.
+            
+            ### 🔐 Контрольная сумма (SHA-256)
+            Используется для проверки подлинности файла и защиты от повреждений при скачивании.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
